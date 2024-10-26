@@ -5,7 +5,7 @@ public class Character {
     int health;
     int strength;
     int defense;
-    int intelligence;
+    int intelligence;  // Intelligence now plays a role
     boolean isAlive;
 
     public Character(String name, int health, int strength, int defense, int intelligence) {
@@ -20,10 +20,21 @@ public class Character {
     // Attack another character
     public void attack(Character target) {
         Random random = new Random();
-        int damage = (this.strength + random.nextInt(6)) - target.defense;
-        if (damage < 0) damage = 0;
-        System.out.println(this.name + " attacks " + target.name + " for " + damage + " damage!");
-        target.takeDamage(damage);
+        
+        // Use intelligence to add chance of critical hit
+        boolean criticalHit = random.nextInt(100) < this.intelligence * 2;  // Intelligence increases critical chance
+
+        int baseDamage = (this.strength + random.nextInt(6)) - target.defense;
+        if (baseDamage < 0) baseDamage = 0;
+
+        if (criticalHit) {
+            baseDamage *= 2;  // Double the damage on a critical hit
+            System.out.println(this.name + " landed a CRITICAL HIT on " + target.name + " for " + baseDamage + " damage!");
+        } else {
+            System.out.println(this.name + " attacks " + target.name + " for " + baseDamage + " damage!");
+        }
+
+        target.takeDamage(baseDamage);
     }
 
     // Take damage and reduce health
@@ -49,3 +60,4 @@ public class Character {
         this.defense /= 2;
     }
 }
+

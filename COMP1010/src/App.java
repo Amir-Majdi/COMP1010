@@ -1,33 +1,21 @@
-import java.util.Scanner;
-import java.util.ArrayList;
 public class App {
     public static void main(String[] args) {
+        // Create characters
+        Character aang = new Character("Aang", 30, 10, 5, 8);
+        Character deadpool = new Character("Deadpool", 25, 12, 4, 7);
+        Character elf = new Character("Legolas", 28, 9, 6, 9);
 
-        Entity Player = new Entity();
-        Player.health = 1000;
-        System.out.print("Enter Your name: ");
-        Scanner sc = new Scanner(System.in);
-        Player.name = sc.nextLine();
-        Weapon
-        int rount
+        // Create two teams
+        Team team1 = new Team();
+        team1.addMember(aang);
+        team1.addMember(elf);
 
-        while (Player.isDead == false){
-            
-            for (int i = 1; i < 1000; i++){
+        Team team2 = new Team();
+        team2.addMember(deadpool);
 
-                for (int j = 1; j < 2; j++){
-
-                    for (int x = 1; x < 2; x++){
-
-                        
-                    }
-                }
-            }
-
-
-
-
-
-        }
+        // Start battle
+        Battle battle = new Battle(team1, team2);
+        battle.startBattle();
     }
 }
+

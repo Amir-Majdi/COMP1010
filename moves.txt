@@ -1,0 +1,7 @@
+Aang attacks Deadpool for 7 damage.
+Deadpool attacks Aang for 12 damage.
+Aang attacks Deadpool for 10 damage.
+Deadpool attacks Aang for 10 damage.
+Aang attacks Deadpool for 8 damage.
+Deadpool has been defeated!
+Victory! The hero team wins!

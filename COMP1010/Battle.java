@@ -45,7 +45,7 @@ public class Battle {
         if (attacker == null || defender == null) return;
 
         System.out.println("\n" + attacker.name + "'s Turn!");
-        System.out.println("Choose action: 1. Attack 2. Defend");
+        System.out.println("Choose action: 1. \n Attack 2. Defend");
         int action = scanner.nextInt();
 
         if (action == 1) {

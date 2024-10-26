@@ -1,12 +1,12 @@
 import java.util.Random;
 
 public class Character {
-    String name;
-    int health;
-    int strength;
-    int defense;
-    int intelligence;  // Intelligence now plays a role
-    boolean isAlive;
+    private String name;
+    private int health;
+    private int strength;
+    private int defense;
+    private int intelligence;
+    private boolean isAlive;
 
     public Character(String name, int health, int strength, int defense, int intelligence) {
         this.name = name;
@@ -17,47 +17,61 @@ public class Character {
         this.isAlive = true;
     }
 
-    // Attack another character
-    public void attack(Character target) {
+    public String getName() { return name; }
+    public boolean isAlive() { return isAlive; }
+    public int getHealth() { return health; }
+
+    public void attack(Character target, BattleLog log) {
         Random random = new Random();
-        
-        // Use intelligence to add chance of critical hit
-        boolean criticalHit = random.nextInt(100) < this.intelligence * 2;  // Intelligence increases critical chance
 
-        int baseDamage = (this.strength + random.nextInt(6)) - target.defense;
-        if (baseDamage < 0) baseDamage = 0;
-
-        if (criticalHit) {
-            baseDamage *= 2;  // Double the damage on a critical hit
-            System.out.println(this.name + " landed a CRITICAL HIT on " + target.name + " for " + baseDamage + " damage!");
-        } else {
-            System.out.println(this.name + " attacks " + target.name + " for " + baseDamage + " damage!");
+        // Determine miss chance: if defender's defense is higher, there’s a chance to miss
+        int hitChance = this.strength - target.defense + random.nextInt(10);
+        if (hitChance <= 0) {
+            log.addMove(this.name + " attacks " + target.getName() + " but misses!");
+            System.out.println(this.name + " attacks " + target.getName() + " but misses!");
+            return;
         }
 
-        target.takeDamage(baseDamage);
+        // Calculate base damage
+        int damage = Math.max(0, this.strength + random.nextInt(6) - target.defense);
+
+        // Check for critical hit based on intelligence
+        int critChance = random.nextInt(100);
+        if (critChance < this.intelligence) {
+            damage *= 2;
+            log.addMove(this.name + " lands a critical hit on " + target.getName() + " for " + damage + " damage!");
+            System.out.println(this.name + " lands a critical hit on " + target.getName() + " for " + damage + " damage!");
+        } else {
+            log.addMove(this.name + " attacks " + target.getName() + " for " + damage + " damage.");
+            System.out.println(this.name + " attacks " + target.getName() + " for " + damage + " damage.");
+        }
+
+        // Apply damage to the target
+        target.takeDamage(damage, log);
     }
 
-    // Take damage and reduce health
-    public void takeDamage(int damage) {
-        this.health -= damage;
-        if (this.health <= 0) {
-            this.health = 0;
-            this.isAlive = false;
-            System.out.println(this.name + " has been defeated!");
-        } else {
-            System.out.println(this.name + " has " + this.health + " HP remaining.");
+    public void takeDamage(int damage, BattleLog log) {
+        health -= damage;
+        if (health <= 0) {
+            health = 0;
+            isAlive = false;
+            log.addMove(name + " has been defeated!");
+            System.out.println(name + " has been defeated!");
         }
     }
 
-    // Defend action (increase defense temporarily)
-    public void defend() {
-        System.out.println(this.name + " is defending, doubling defense!");
+    public void defend(BattleLog log) {
+        log.addMove(name + " is defending and doubles their defense temporarily.");
+        System.out.println(name + " is defending and doubles their defense temporarily.");
         this.defense *= 2;
     }
 
-    // Reset defense after each turn
-    public void resetDefense() {
-        this.defense /= 2;
+    public void resetDefense(int originalDefense) {
+        this.defense = originalDefense;
+    }
+
+    // Method to display character's health
+    public void displayHealth() {
+        System.out.println(name + "'s Health: " + health + " HP");
     }
 }
-

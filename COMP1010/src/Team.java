@@ -1,34 +1,37 @@
 import java.util.ArrayList;
 
 public class Team {
-    ArrayList<Character> members;
+    private String name;
+    private ArrayList<Character> members;
 
-    public Team() {
-        members = new ArrayList<>();
+    public Team(String name) {
+        this.name = name;
+        this.members = new ArrayList<>();
     }
 
-    // Add character to the team
     public void addMember(Character character) {
         members.add(character);
     }
 
-    // Check if the team is still alive
-    public boolean isAlive() {
-        for (Character member : members) {
-            if (member.isAlive) {
-                return true;
-            }
-        }
-        return false;
+    // Recursive method to check if the team has any alive members
+    public boolean hasAliveMembers() {
+        return hasAliveMembers(0);
     }
 
-    // Get an alive character to take a turn
-    public Character getActiveMember() {
-        for (Character member : members) {
-            if (member.isAlive) {
-                return member;
-            }
-        }
-        return null;  // All members are defeated
+    private boolean hasAliveMembers(int index) {
+        if (index >= members.size()) return false;
+        if (members.get(index).isAlive()) return true;
+        return hasAliveMembers(index + 1);
+    }
+
+    public Character getFirstAliveMember() {
+        return getFirstAliveMember(0);
+    }
+
+    private Character getFirstAliveMember(int index) {
+        if (index >= members.size()) return null;
+        Character character = members.get(index);
+        if (character.isAlive()) return character;
+        return getFirstAliveMember(index + 1);
     }
 }

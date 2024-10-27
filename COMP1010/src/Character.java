@@ -38,7 +38,7 @@ public class Character {
         // Check for critical hit based on intelligence
         int critChance = random.nextInt(100);
         if (critChance < this.intelligence) {
-            damage *= 2;
+            damage = damage*2;
             log.addMove(this.name + " lands a critical hit on " + target.getName() + " for " + damage + " damage!");
             System.out.println(this.name + " lands a critical hit on " + target.getName() + " for " + damage + " damage!");
         } else {
@@ -51,7 +51,7 @@ public class Character {
     }
 
     public void takeDamage(int damage, BattleLog log) {
-        health -= damage;
+        health = health - damage;
         if (health <= 0) {
             health = 0;
             isAlive = false;

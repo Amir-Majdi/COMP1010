@@ -17,7 +17,7 @@ public class App {
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
             } else {
-                scanner.next();  // Clear the invalid input
+                scanner.next(); 
             }
             if (choice != 1 && choice != 2) {
                 System.out.println("Invalid input. Please enter 1 or 2.");
@@ -119,24 +119,24 @@ public class App {
         System.out.println("You have 100 points to allocate between health, strength, defense, and intelligence.");
         
         health = allocateStat(scanner, "health", points);
-        points -= health;
+        points = points-health;
         System.out.println("Points remaining after health allocation: " + points);
 
         if (points > 0) {
             strength = allocateStat(scanner, "strength", points);
-            points -= strength;
+            points = points - strength;
             System.out.println("Points remaining after strength allocation: " + points);
         }
 
         if (points > 0) {
             defense = allocateStat(scanner, "defense", points);
-            points -= defense;
+            points = points -defense;
             System.out.println("Points remaining after defense allocation: " + points);
         }
 
         if (points > 0) {
             intelligence = allocateStat(scanner, "intelligence", points);
-            points -= intelligence;
+            points = points-intelligence;
             System.out.println("Points remaining after intelligence allocation: " + points);
         }
 
@@ -146,7 +146,7 @@ public class App {
         return new Character(name, health, strength, defense, intelligence);
     }
 
-    // Helper method to allocate points for a specific stat
+    // Allocates points for a specific stat
     private static int allocateStat(Scanner scanner, String statName, int remainingPoints) {
         int statValue = -1;
 

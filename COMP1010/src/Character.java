@@ -17,9 +17,16 @@ public class Character {
         this.isAlive = true;
     }
 
-    public String getName() { return name; }
-    public boolean isAlive() { return isAlive; }
-    public int getHealth() { return health; }
+    public String getName() {
+        
+        return name; 
+    }
+    public boolean isAlive() {
+        return isAlive;
+    }
+    public int getHealth() { 
+        return health;
+    }
 
     public void attack(Character target, BattleLog log) {
         Random random = new Random();
@@ -70,7 +77,7 @@ public class Character {
         this.defense = originalDefense;
     }
 
-    // Method to display character's health
+    // Function to display character's health
     public void displayHealth() {
         System.out.println(name + "'s Health: " + health + " HP");
     }
